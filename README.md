@@ -1,4 +1,4 @@
-# Spyder AutoJudge
+# Spyder AutoJudge!
 
 Spyder AutoJudge is a Spyder plugin that adds a dockable pane for running competitive-programming style test cases against the latest modified Python file in a target folder.
 
