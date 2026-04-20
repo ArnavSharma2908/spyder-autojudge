@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spyder-autojudge"
+version = "0.1.0"
+description = "Spyder dockable pane to run input/expected test cases for the latest Python file."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Arnav Sharma" }
+]
+keywords = ["spyder", "plugin", "testing", "judge", "autojudge"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Framework :: Spyder",
+  "Topic :: Software Development :: Testing"
+]
+dependencies = [
+  "spyder>=5.4",
+  "matplotlib>=3.5",
+  "qtpy>=2.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/ArnavSharma2908/spyder-autojudge"
+Repository = "https://github.com/ArnavSharma2908/spyder-autojudge.git"
+Issues = "https://github.com/ArnavSharma2908/spyder-autojudge/issues"
+
+[project.entry-points."spyder.plugins"]
+spyder_autojudge = "spyder_autojudge.plugin:AutoJudgePlugin"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["spyder_autojudge*"]
