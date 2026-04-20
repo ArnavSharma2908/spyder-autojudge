@@ -17,7 +17,7 @@ python -m pip install -e .
 
 1. Create a feature branch from `main`.
 2. Make small, focused commits.
-3. Update docs and changelog when behavior changes.
+3. Update docs when behavior changes.
 4. Ensure packaging still builds with:
 
 ```bash
