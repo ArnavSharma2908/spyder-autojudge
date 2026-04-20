@@ -1,23 +1,35 @@
 # Spyder AutoJudge
 
-Spyder AutoJudge is a Spyder plugin that adds a dockable pane for running competitive-programming style test cases against the latest modified Python file in a target folder.
+Spyder AutoJudge is a lightweight Spyder plugin for quickly checking the latest Python file in a folder against `input.txt` and `expected.txt` test cases.
 
-## Features
+[Project on PyPI](https://pypi.org/project/spyder-autojudge/)
 
-- Detects the latest modified `.py` file in a selected folder.
-- Reads test inputs from `input.txt` and expected outputs from `expected.txt`.
-- Runs each test case with timeout protection.
-- Shows pass, wrong-answer, and runtime-error summary.
-- Displays a result pie chart (when `matplotlib` is available).
+## What it does
 
-## Prerequisites
+- Finds the most recently modified `.py` file in the selected folder.
+- Runs that file against test cases from `input.txt` and compares output with `expected.txt` when you click `Run Latest`.
+- Shows a clear summary for success, wrong output, and runtime error cases.
+- Draws a pie chart using `matplotlib` (installed with this package).
 
-- Python 3.9 or newer.
-- Spyder 5.4 or newer.
-- A Spyder environment where `spyder-autojudge` is installed.
-- Optional but recommended: `matplotlib` for the pie chart visualization.
+## Why Spyder AutoJudge exists
 
-## Installation
+If you like building small competitive-programming style workflows inside Spyder, this plugin keeps the feedback loop simple:
+
+- write code
+- save the file
+- run the latest version
+- see results immediately
+
+It is intentionally minimal, so it feels close to the workflow used by small Python tools in the wild: one clear task, one short path to test it, and a straightforward result panel.
+
+## Requirements
+
+- Python 3.9 or newer
+- Spyder 5.4 or newer
+
+`matplotlib` is installed automatically as a dependency of `spyder-autojudge`.
+
+## Install
 
 Install from PyPI:
 
@@ -25,44 +37,40 @@ Install from PyPI:
 pip install spyder-autojudge
 ```
 
-If you use virtual environments, install into the same environment used by Spyder.
+If Spyder is already open, restart it after installation so the plugin is discovered.
 
-Quick verification:
+To verify the package is installed:
 
 ```bash
 python -m pip show spyder-autojudge
 ```
 
-If Spyder does not detect the plugin, restart Spyder after installation.
-
-## Usage
+## Use
 
 1. Open Spyder.
-2. Open the AutoJudge pane from Spyder's plugin UI.
-3. Select your working folder from the pane options.
-4. Add three files in that folder:
-   - Your solution files (`*.py`).
-   - `input.txt` containing test inputs.
-   - `expected.txt` containing expected outputs.
+2. Open the AutoJudge pane.
+3. Choose the folder containing your solution and test files.
+4. Make sure the folder has these files:
+   - one or more Python files
+   - `input.txt`
+   - `expected.txt`
 5. Click `Run Latest`.
 
-AutoJudge will select the most recently modified Python file and run it against each test case pair.
+AutoJudge picks the newest `.py` file in that folder and runs it case by case.
 
-### Recommended working folder layout
+### Folder example
 
 ```text
 your-problem-folder/
   solution.py
-  trial.py
+  scratch.py
   input.txt
   expected.txt
 ```
 
-`Run Latest` will choose whichever Python file has the latest modified timestamp.
+### Test file format
 
-### Test case format
-
-Use blank lines to separate test cases in both files. Test case count must match between `input.txt` and `expected.txt`.
+Use blank lines to separate cases in both files. The number of cases must match.
 
 `input.txt` example:
 
@@ -82,59 +90,41 @@ Use blank lines to separate test cases in both files. Test case count must match
 30
 ```
 
-### How `input.txt` is used
+### Output states
 
-- Each block is passed to the program's stdin for one test case.
-- Multi-line input is supported inside a block.
-- Blocks are split on blank lines.
+- Success means the program output matched the expected output.
+- Wrong output means the program ran but did not match.
+- Error means the program hit a runtime error, timeout, or execution problem.
 
-### How `expected.txt` is used
+### Chart view
 
-- Each block is the exact expected stdout for the corresponding input block.
-- Output comparison is done per test case.
-- The number of blocks must be equal to `input.txt`.
+When `matplotlib` is installed, the results panel shows a pie chart for:
 
-### Result statuses
+- success
+- wrong
+- error
 
-- SUCCESS: Program output matches expected output.
-- WRONG OUTPUT: Program ran but output did not match expected output.
-- ERROR: Runtime error, timeout, or execution issue.
-
-### Pie chart and summary panel
-
-When `matplotlib` is available, AutoJudge renders a pie chart with:
-
-- Success (green)
-- Wrong (orange)
-- Error (red)
-
-If no test data is available yet, the chart area shows a placeholder message.
+If there are no test results yet, the chart area shows a placeholder message instead.
 
 ### Working screenshot
 
-Add your screenshot to `docs/images/autojudge-working.png`, then this section will render automatically:
-
 ![Spyder AutoJudge working screenshot](docs/images/autojudge-working.png)
 
-## Development
+## Contributing
 
-```bash
-python -m pip install -U build twine
-python -m build
-python -m twine check dist/*
-```
+Contributions are welcome. If you would like to report an issue, suggest an improvement, or send a pull request, start with [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## Publishing to PyPI
+Good first contributions usually include:
 
-```bash
-python -m twine upload dist/*
-```
+- documentation improvements
+- small UI polish
+- test file handling edge cases
+- clearer error messages
 
-For first release, test on TestPyPI first:
 
-```bash
-python -m twine upload --repository testpypi dist/*
-```
+## Release
+
+Publishing is handled from GitHub Actions using the release workflows in this repository.
 
 ## License
 

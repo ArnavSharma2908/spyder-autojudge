@@ -8,7 +8,7 @@ from .widgets import AutoJudgeWidget
 
 
 class AutoJudgePlugin(SpyderDockablePlugin):
-    """A Spyder dockable pane that auto-tests Python files on save."""
+    """A Spyder dockable pane that runs tests when the user clicks Run Latest."""
 
     NAME = "spyder_autojudge"
     REQUIRES = []
@@ -24,7 +24,7 @@ class AutoJudgePlugin(SpyderDockablePlugin):
 
     @staticmethod
     def get_description():
-        return "Run input/expected test cases whenever Python files change."
+        return "Run input/expected test cases for the latest Python file on demand."
 
     @classmethod
     def get_icon(cls):
